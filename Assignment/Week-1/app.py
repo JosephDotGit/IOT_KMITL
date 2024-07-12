@@ -33,6 +33,11 @@ app.add_middleware(
 )
 
 
+@router_v1.get("/")
+def root():
+    return "Hello World"
+
+
 @router_v1.get("/student")
 async def get_student(db: Session = Depends(get_db)):
     db_students = db.query(models.Student).all()
@@ -63,7 +68,7 @@ async def get_student(student_id: str, db: Session = Depends(get_db)):
         birth=db_students.birth,
         gender=db_students.gender,
     )
-    
+
     return response
 
 

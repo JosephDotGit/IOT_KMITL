@@ -35,12 +35,36 @@ app.add_middleware(
 
 @router_v1.get("/student")
 async def get_student(db: Session = Depends(get_db)):
-    return db.query(models.Student).all()
+    db_students = db.query(models.Student).all()
+
+    responses = []
+    for student in db_students:
+        response = models.StudentResponse(
+            id=student.id,
+            firstname=student.firstname,
+            surname=student.surname,
+            birth=student.birth,
+            gender=student.gender,
+        )
+        responses.append(response)
+    return responses
 
 
 @router_v1.get("/student/{student_id}")
 async def get_student(student_id: str, db: Session = Depends(get_db)):
-    return db.query(models.Student).filter(models.Student.id == student_id).first()
+    db_students = (
+        db.query(models.Student).filter(models.Student.id == student_id).first()
+    )
+
+    response = models.StudentResponse(
+        id=db_students.id,
+        firstname=db_students.firstname,
+        surname=db_students.surname,
+        birth=db_students.birth,
+        gender=db_students.gender,
+    )
+    
+    return response
 
 
 @router_v1.post("/student")
@@ -115,4 +139,5 @@ app.include_router(router_v1)
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app)

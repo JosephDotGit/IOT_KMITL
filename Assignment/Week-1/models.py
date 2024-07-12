@@ -25,3 +25,14 @@ class StudentUpdate(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class StudentResponse(BaseModel):
+    id: str
+    firstname: str
+    surname: str
+    birth: str
+    gender: str
+
+    class Config:
+        from_attributes = True

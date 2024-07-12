@@ -18,10 +18,10 @@ class Student(Base):
 
 
 class StudentUpdate(BaseModel):
-    firstname: str | None = None
-    surname: str | None = None
-    birth: str | None = None
-    gender: str | None = None
+    firstname: Optional[str] = None
+    surname: Optional[str] = None
+    birth: Optional[str] = None
+    gender: Optional[str] = None
 
     class Config:
         from_attributes = True

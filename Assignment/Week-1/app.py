@@ -33,7 +33,7 @@ app.add_middleware(
 )
 
 
-@router_v1.get("/")
+@app.get("/")
 def root():
     return "Hello World"
 
@@ -92,10 +92,10 @@ async def create_student(
 
 
 @router_v1.put("/student/{student_id}")
-async def update_student(
-    student: models.StudentUpdate,
+async def put_student(
     student_id: str,
     response: Response,
+    student: models.StudentUpdate,
     db: Session = Depends(get_db),
 ):
     all_info = db.query(models.Student).filter(models.Student.id == student_id).first()
@@ -106,6 +106,23 @@ async def update_student(
     db.refresh(all_info)
     response.status_code = 200
     return all_info
+
+
+# @router_v1.patch("/student/{student_id}")
+# async def patch_student(
+#     student_id: str,
+#     response: Response,
+#     student: models.StudentUpdate,
+#     db: Session = Depends(get_db),
+# ):
+#     all_info = db.query(models.Student).filter(models.Student.id == student_id).first()
+#     student_data = student.dict(exclude_unset=True)
+#     for key, value in student_data.items():
+#         setattr(all_info, key, value)
+#     db.commit()
+#     db.refresh(all_info)
+#     response.status_code = 200
+#     return all_info
 
 
 @router_v1.delete("/student/{student_id}")
@@ -114,30 +131,10 @@ async def delete_book(
     response: Response,
     db: Session = Depends(get_db),
 ):
-    try:
-        db.query(models.Student).filter(models.Student.id == student_id).delete()
-        db.commit()
-    except Exception as e:
-        raise Exception(e)
+    db.query(models.Student).filter(models.Student.id == student_id).delete()
+    db.commit()
     response.status_code = 200
     return {"delete status": "success"}
-
-
-@router_v1.patch("/student/{student_id}")
-async def patch_student(
-    student_id: str,
-    response: Response,
-    student: models.StudentUpdate,
-    db: Session = Depends(get_db),
-):
-    all_info = db.query(models.Student).filter(models.Student.id == student_id).first()
-    student_data = student.dict(exclude_unset=True)
-    for key, value in student_data.items():
-        setattr(all_info, key, value)
-    db.commit()
-    db.refresh(all_info)
-    response.status_code = 200
-    return all_info
 
 
 app.include_router(router_v1)

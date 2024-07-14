@@ -35,7 +35,12 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return "Hello World"
+    return "Hello World "
+
+
+@router_v1.get("/")
+def version():
+    return {"version": "1.0.0"}
 
 
 @router_v1.get("/student")

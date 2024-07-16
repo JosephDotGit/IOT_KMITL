@@ -104,6 +104,9 @@ async def put_student(
     db: Session = Depends(get_db),
 ):
     all_info = db.query(models.Student).filter(models.Student.id == student_id).first()
+    if all_info == None:
+        response.status_code = 404
+        return {"404 Error": "Student not found"}
     student_data = student.dict(exclude_unset=True)
     for key, value in student_data.items():
         setattr(all_info, key, value)

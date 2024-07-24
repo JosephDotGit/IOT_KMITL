@@ -31,7 +31,7 @@ export default function BookEditById() {
       name: (value) => {
         if (typeof value !== 'string') return "ชื่อกาแฟต้องเป็นข้อความ";
         if (!value.trim()) return "กรุณาระบุชื่อกาแฟ";
-        if (value.length < 2) return "ชื่อกาแฟต้องมีความยาวอย่างน้อย 2 ตัวอักษร";
+        if (value.length < 3) return "ชื่อกาแฟต้องมีความยาวอย่างน้อย 3 ตัวอักษร";
         return null;
 
       },

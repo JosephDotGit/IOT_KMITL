@@ -28,7 +28,8 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
     "http://localhost:5173",  # frontend domain
-    "https://iot-kmitl-week-2-frontend.vercel.app/api/v1"
+    "https://iot-kmitl-week-2-frontend.vercel.app",
+    "https://iot-kmitl-week-2-frontend.vercel.app"
 ]
 
 app.add_middleware(

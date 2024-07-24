@@ -27,7 +27,7 @@ def get_db():
 origins = [
     "http://localhost",
     "http://localhost:8000",
-    "http://localhost:5173",  # frontend domain
+    "http://localhost:5173",  # frontend domains
 ]
 
 app.add_middleware(

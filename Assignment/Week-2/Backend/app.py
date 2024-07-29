@@ -24,16 +24,10 @@ def get_db():
     finally:
         db.close()
 
-origins = [
-    "http://localhost",
-    "http://localhost:8000",
-    "http://localhost:5173",
-    "https://iot-kmitl-week-2.vercel.app"
-]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
